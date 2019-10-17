@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--  ZMDI Icon CDN -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/dashboard.css">
+    <!-- Roboto Font CDN -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+    <title>Dashboard</title>
+</head>
+<body>
+    
+    <div class="container-fluid">
+        <div class="row form-container">
+            <form class="input-form" id="input-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" name="title" id="title" class="form-control input-style" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="description" id="description" class="form-control input-style" placeholder="Description">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="assigned" id="assigned" class="form-control input-style" placeholder="User Assigned">
+                    </div>
+                    <div class="form-btn">
+                        <button id="add-card" class="form-control btn btn-success" style="display:none;" type="submit"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row btn-clear">
+            <button id="clear-data" class="form-control btn btn-danger">Clear</button>
+        </div>
+        <div class="row cards">
+            <div id="init-card-container">
+                <div class="section-title"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
