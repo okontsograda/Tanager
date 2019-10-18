@@ -125,3 +125,14 @@ body, html {
     display: flex;
     justify-content: center;
 }
+
+.btn-done {
+    margin-left: 45%;
+    border-radius: 6px;
+    border: none;
+    background: #D75257;
+    color: #fff;
+}
+
+.btn-done:
+

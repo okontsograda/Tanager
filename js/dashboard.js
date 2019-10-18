@@ -1,24 +1,22 @@
 // Declaring global variables for the form submission
 const form      = document.getElementById('input-form');
 const button    = document.querySelector('add-card');
-/* Global variable for wher the cards will be displayed on the dashboard
-    TODO: add functionality for displayed in the working and completed columns
-*/
+// Global variable for where the cards will be displayed on the dashboard
 let cardContainer;
-let cardContainerWorking;
-let cardContainerCompleted;
 
-let cardsArray = localStorage.getItem('cards') ?
-JSON.parse(localStorage.getItem('cards')) : [];
+// Parse localStorage and retrieve all items labeled cards and convert to JSON format
+let cardsArray = localStorage.getItem('cards') ? JSON.parse(localStorage.getItem('cards')) : [];
+// let cardsArray = Object.entries(localStorage);
+
+entries = Object.entries(localStorage);
+
 
 // Global variables for the input data values
 const title         =   document.getElementById('title');
 const description   =   document.getElementById('description');   
-const assigned      =   document.getElementById('assigned');
 const date          =   new Date().toLocaleDateString();
 
 const data = JSON.parse(localStorage.getItem('cards'));
-
 
 // Process the input form when it is submitted
 document.getElementById('input-form').addEventListener('submit', function(e) {
@@ -29,22 +27,32 @@ document.getElementById('input-form').addEventListener('submit', function(e) {
         "title"         :   title.value,
         "description"   :   description.value,
         "date"          :   date,
-        "assigned"      :   assigned.value
     };
     
     createTaskCard(task);
 
     cardsArray.push(task);
-    localStorage.setItem('cards', JSON.stringify(cardsArray));
+    localStorage.setItem(title.value, JSON.stringify(cardsArray));
     
     e.preventDefault();
 
     // Reset values of the input forms after processing the submission
     title.value = '';
     description.value = '';
-    assigned.value = '';
     
 });
+
+// Wait for the DOM to be ready and then process removing a single card when it's done
+$(document).ready(function() {
+
+    $('.btn-done').click(function (e) {
+        let id = $(this).attr('id');
+        $(this).closest('.card').remove();
+        console.log(id);
+        e.preventDefault();
+    })
+
+})
 
 document.getElementById('clear-data').addEventListener("click", function (e) {
     e.preventDefault();    
@@ -52,13 +60,14 @@ document.getElementById('clear-data').addEventListener("click", function (e) {
 
     $("#init-card-container").empty();
 
-})
+});
 
 // Function to create a new task card
 let createTaskCard = (task) => {
     // Create the initial div for the card
     let card = document.createElement('div')
-    card.className = 'card';
+    card.className  = 'card';
+    card.id         = task.title;
 
     let cardBody = document.createElement('div');
     cardBody.className = 'card-body';
@@ -75,15 +84,15 @@ let createTaskCard = (task) => {
     cardDate.innerText  =   task.date;
     cardDate.className  =   'posted-date';
 
-    let assignedTo          =   document.createElement('div');
-    assignedTo.innerText    =   task.assigned;
-    assignedTo.className    =   'assigned-field';
-
+    let doneButton          = document.createElement('button');
+    doneButton.innerText    = 'Done';
+    doneButton.className    = 'btn btn-sm btn-done';
+    doneButton.id           = task.title;
 
     cardBody.appendChild(title);
     cardBody.appendChild(cardText);
     cardBody.appendChild(cardDate);
-    cardBody.appendChild(assignedTo);
+    cardBody.appendChild(doneButton);
     card.appendChild(cardBody);
     cardContainer.appendChild(card);
 }
