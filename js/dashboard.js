@@ -8,8 +8,6 @@ let cardContainer;
 let cardsArray = localStorage.getItem('cards') ? JSON.parse(localStorage.getItem('cards')) : [];
 // let cardsArray = Object.entries(localStorage);
 
-entries = Object.entries(localStorage);
-
 
 // Global variables for the input data values
 const title         =   document.getElementById('title');
@@ -32,7 +30,7 @@ document.getElementById('input-form').addEventListener('submit', function(e) {
     createTaskCard(task);
 
     cardsArray.push(task);
-    localStorage.setItem(title.value, JSON.stringify(cardsArray));
+    localStorage.setItem('cards', JSON.stringify(cardsArray));
     
     e.preventDefault();
 
@@ -44,15 +42,12 @@ document.getElementById('input-form').addEventListener('submit', function(e) {
 
 // Wait for the DOM to be ready and then process removing a single card when it's done
 $(document).ready(function() {
-
-    $('.btn-done').click(function (e) {
-        let id = $(this).attr('id');
+    $('.btn-done').click(function(e) {
         $(this).closest('.card').remove();
-        console.log(id);
         e.preventDefault();
-    })
 
-})
+    });
+});
 
 document.getElementById('clear-data').addEventListener("click", function (e) {
     e.preventDefault();    
