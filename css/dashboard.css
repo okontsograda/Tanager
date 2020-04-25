@@ -117,11 +117,12 @@ body, html {
     font-size: 12px;
 }
 
-.btn-danger {
+.btn-sm {
     width: 100px;
+    margin: 4px;
 }
 
-.btn-clear {
+.btn-group {
     display: flex;
     justify-content: center;
 }

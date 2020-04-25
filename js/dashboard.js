@@ -1,6 +1,7 @@
 // Declaring global variables for the form submission
 const form      = document.getElementById('input-form');
 const button    = document.querySelector('add-card');
+
 // Global variable for where the cards will be displayed on the dashboard
 let cardContainer;
 
@@ -17,7 +18,7 @@ const date          =   new Date().toLocaleDateString();
 const data = JSON.parse(localStorage.getItem('cards'));
 
 // Process the input form when it is submitted
-document.getElementById('input-form').addEventListener('submit', function(e) {
+form.addEventListener('submit', function(e) {
     // TODO: Add form validation for the input fields being passed in
 
     // Assign the values parsed from the input form and push them to the array in a key-value pair
@@ -40,13 +41,10 @@ document.getElementById('input-form').addEventListener('submit', function(e) {
     
 });
 
-// Wait for the DOM to be ready and then process removing a single card when it's done
-$(document).ready(function() {
-    $('.btn-done').click(function(e) {
-        $(this).closest('.card').remove();
-        e.preventDefault();
-
-    });
+$(document).on('click', ':button.btn-done', function(e) {
+    var btnID = $(this).attr('id');
+    removeTaskCard(btnID);
+    e.preventDefault();
 });
 
 document.getElementById('clear-data').addEventListener("click", function (e) {
@@ -57,7 +55,7 @@ document.getElementById('clear-data').addEventListener("click", function (e) {
 
 });
 
-// Function to create a new task card
+// Create a new task card
 let createTaskCard = (task) => {
     // Create the initial div for the card
     let card = document.createElement('div')
@@ -90,6 +88,24 @@ let createTaskCard = (task) => {
     cardBody.appendChild(doneButton);
     card.appendChild(cardBody);
     cardContainer.appendChild(card);
+}
+
+//  Remove a task card
+let removeTaskCard = (task) => {
+    var currentCards = JSON.parse(localStorage.getItem('cards'));
+    var index = findIndex(currentCards, 'title', task);
+    currentCards.splice(index,1);
+    localStorage.clear();
+    localStorage.setItem('cards', JSON.stringify(currentCards));
+    $('#' + task).remove();
+}
+
+let findIndex = (array, attr, value) => {
+    for(var i = 0; i < array.length; i++) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
 }
 
 // Function used to check the current cards and load them to be displayed on the page
